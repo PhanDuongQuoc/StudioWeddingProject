@@ -1,0 +1,94 @@
+// ============================================================
+// Wedding Studio Design Tokens - Hong Kong / VN 90s Aesthetic
+// ============================================================
+
+:root {
+  // Paper & Backgrounds
+  --color-paper: white;
+  --color-paper-light: white;
+  --color-paper-dark: white;
+  --color-paper-card: white;
+
+  // Inks & Typography
+  --color-ink: #242421;
+  --color-ink-soft: #55534B;
+  --color-muted: #77736A;
+
+  // Vintage Accents
+  --color-burgundy: #8E2929;
+  --color-burgundy-dark: #6E2020;
+  --color-burgundy-soft: #A8443E;
+
+  // Film / Dark Teal Accents
+  --color-film-teal: #314C4B;
+  --color-film-blue: #405A5B;
+  --color-film-dark: #182322;
+
+  // Borders & Lines
+  --color-border: #C9C0B2;
+  --color-border-light: #DCD5C8;
+  --color-border-dark: #9E9588;
+
+  // Fonts
+  --font-serif: 'Cormorant Garamond', 'Noto Serif TC', Georgia, serif;
+  --font-sans: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-chinese: 'Noto Serif TC', 'Cormorant Garamond', serif;
+
+  // Spacing & Layout
+  --header-height: 68px;
+  --container-max-width: 1560px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+}
+
+// Global Body Styles
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+// Typography Classes
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+.font-chinese {
+  font-family: var(--font-chinese);
+}
+
+// Vintage Film Photo Style
+.film-photo {
+  filter: saturate(0.88) contrast(0.98);
+  transition: transform 0.3s ease, filter 0.3s ease;
+
+  &:hover {
+    filter: saturate(0.95) contrast(1);
+  }
+}
+
+// Editorial Container (Fluid Full-Width Responsive)
+.studio-container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(16px, 3.5vw, 60px);
+  padding-right: clamp(16px, 3.5vw, 60px);
+}
+
+// Section Divider Lines
+.editorial-divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-border);
+  margin: 0;
+  border: none;
+}

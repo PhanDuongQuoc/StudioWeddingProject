@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="burgundyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9E3030" />
+      <stop offset="100%" stop-color="#6E2020" />
+    </linearGradient>
+  </defs>
+  <!-- Background Circle Badge -->
+  <circle cx="32" cy="32" r="30" fill="url(#burgundyGrad)" stroke="#FAF7F0" stroke-width="2"/>
+  <!-- Decorative Inner Dotted Ring -->
+  <circle cx="32" cy="32" r="26" fill="none" stroke="#FAF7F0" stroke-width="0.75" stroke-dasharray="2,2" opacity="0.6"/>
+  <!-- Central Traditional 4-Petal Vintage Emblem -->
+  <g transform="translate(32,32) scale(1.5) translate(-12,-12)">
+    <path d="M12 2C13.5 5 15 7.5 18 8C15 9.5 13.5 12 12 15C10.5 12 9 9.5 6 8C9 7.5 10.5 5 12 2Z" fill="#FAF7F0" stroke="#FAF7F0" stroke-width="0.3"/>
+    <path d="M22 12C19 13.5 16.5 15 16 18C14.5 15 12 13.5 9 12C12 10.5 14.5 9 16 6C16.5 9 19 10.5 22 12Z" fill="#FAF7F0" stroke="#FAF7F0" stroke-width="0.3"/>
+    <path d="M12 22C10.5 19 9 16.5 6 16C9 14.5 10.5 12 12 9C13.5 12 15 14.5 18 16C15 16.5 13.5 19 12 22Z" fill="#FAF7F0" stroke="#FAF7F0" stroke-width="0.3"/>
+    <path d="M2 12C5 10.5 7.5 9 8 6C9.5 9 12 10.5 15 12C12 13.5 9.5 15 8 18C7.5 15 5 13.5 2 12Z" fill="#FAF7F0" stroke="#FAF7F0" stroke-width="0.3"/>
+    <circle cx="12" cy="12" r="2.8" fill="#8E2929" stroke="#FAF7F0" stroke-width="0.8"/>
+  </g>
+</svg>
