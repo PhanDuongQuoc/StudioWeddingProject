@@ -42,6 +42,46 @@
           <span class="lang-item">EN</span>
         </div>
 
+        <!-- Auth State Button / Profile Dropdown -->
+        <div v-if="authStore.isAuthenticated" class="user-auth-menu">
+          <q-btn-dropdown
+            flat
+            dense
+            no-caps
+            class="user-dropdown-btn"
+            content-class="vintage-menu-popup"
+          >
+            <template #label>
+              <div class="user-pill">
+                <span class="user-avatar">{{ userInitials }}</span>
+                <span class="user-name">{{ authStore.currentUser?.fullName || authStore.currentUser?.username }}</span>
+              </div>
+            </template>
+            <q-list class="user-menu-list">
+              <q-item clickable v-close-popup v-if="authStore.userRoles.includes('Admin')" to="/quan-tri-hy-su-studio">
+                <q-item-section avatar>
+                  <q-icon name="dashboard" size="18px" />
+                </q-item-section>
+                <q-item-section>Trang Quản Trị</q-item-section>
+              </q-item>
+              <q-item clickable v-close-popup @click="handleLogout">
+                <q-item-section avatar>
+                  <q-icon name="logout" color="negative" size="18px" />
+                </q-item-section>
+                <q-item-section class="text-negative">Đăng xuất</q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+        </div>
+
+        <router-link v-else to="/dang-nhap" class="header-auth-btn font-serif">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>Đăng nhập</span>
+        </router-link>
+
         <!-- Mobile Menu Toggle Button -->
         <button class="mobile-menu-btn" @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Mở menu">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -61,14 +101,45 @@
       <a href="#dich-vu" class="mobile-nav-link" @click="mobileMenuOpen = false">Dịch vụ</a>
       <a href="#goi-cuoi" class="mobile-nav-link" @click="mobileMenuOpen = false">Gói cưới</a>
       <a href="#lien-he" class="mobile-nav-link" @click="mobileMenuOpen = false">Liên hệ</a>
+      <div class="mobile-drawer-auth">
+        <router-link v-if="!authStore.isAuthenticated" to="/dang-nhap" class="btn-vintage full-width q-pa-sm text-center" @click="mobileMenuOpen = false">
+          Đăng nhập / Đăng ký
+        </router-link>
+        <button v-else @click="handleLogout" class="btn-vintage-outline full-width q-pa-sm">
+          Đăng xuất ({{ authStore.currentUser?.username }})
+        </button>
+      </div>
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
+import { useQuasar } from 'quasar'
 
+const router = useRouter()
+const $q = useQuasar()
+const authStore = useAuthStore()
 const mobileMenuOpen = ref(false)
+
+const userInitials = computed(() => {
+  const name = authStore.currentUser?.fullName || authStore.currentUser?.username || 'U'
+  return name.charAt(0).toUpperCase()
+})
+
+async function handleLogout() {
+  authStore.logout()
+  $q.notify({
+    type: 'info',
+    message: 'Đã đăng xuất tài khoản',
+    position: 'top',
+    timeout: 2000
+  })
+  mobileMenuOpen.value = false
+  await router.push('/dang-nhap')
+}
 </script>
 
 <style lang="scss" scoped>
@@ -194,6 +265,66 @@ const mobileMenuOpen = ref(false)
     }
   }
 
+  .header-auth-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-paper-light);
+    background-color: var(--color-burgundy);
+    padding: 6px 14px;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--color-burgundy-dark);
+    text-decoration: none;
+    transition: all 0.25s ease;
+
+    &:hover {
+      background-color: var(--color-burgundy-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(142, 41, 41, 0.2);
+    }
+
+    @media (max-width: 900px) {
+      display: none;
+    }
+  }
+
+  .user-auth-menu {
+    .user-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px 4px 4px;
+      background-color: var(--color-paper-light);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      color: var(--color-ink);
+
+      .user-avatar {
+        width: 26px;
+        height: 26px;
+        background-color: var(--color-burgundy);
+        color: #FAF7F0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.78rem;
+        font-weight: 600;
+      }
+
+      .user-name {
+        font-size: 0.88rem;
+        font-weight: 500;
+        max-width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
   .mobile-menu-btn {
     display: none;
     background: none;
@@ -233,6 +364,11 @@ const mobileMenuOpen = ref(false)
     &:hover {
       color: var(--color-burgundy);
     }
+  }
+
+  .mobile-drawer-auth {
+    margin-top: 8px;
+    padding-top: 8px;
   }
 }
 </style>
