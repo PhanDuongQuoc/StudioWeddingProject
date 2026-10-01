@@ -14,7 +14,7 @@
           
           <div class="info-list">
             <div class="info-item">
-              <span class="info-icon">📍</span>
+              <span class="info-icon"><i class="fa-solid fa-location-dot"></i></span>
               <div>
                 <strong>Địa chỉ:</strong>
                 <p>123 Nguyễn Văn Cừ, Phường 4, Quận 5, TP. Hồ Chí Minh</p>
@@ -22,7 +22,7 @@
             </div>
 
             <div class="info-item">
-              <span class="info-icon">📞</span>
+              <span class="info-icon"><i class="fa-solid fa-phone"></i></span>
               <div>
                 <strong>Điện thoại:</strong>
                 <p>+84 912 345 678</p>
@@ -30,7 +30,7 @@
             </div>
 
             <div class="info-item">
-              <span class="info-icon">✉️</span>
+              <span class="info-icon"><i class="fa-solid fa-envelope"></i></span>
               <div>
                 <strong>Email:</strong>
                 <p>contact@hysustudio.vn</p>
@@ -38,7 +38,7 @@
             </div>
 
             <div class="info-item">
-              <span class="info-icon">🕒</span>
+              <span class="info-icon"><i class="fa-regular fa-clock"></i></span>
               <div>
                 <strong>Giờ làm việc:</strong>
                 <p>8:00 - 21:00 (Thứ 2 - Chủ Nhật)</p>

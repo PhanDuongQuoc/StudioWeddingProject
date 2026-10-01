@@ -18,7 +18,7 @@
 
     <div class="service-footer">
       <p class="service-desc">{{ service?.description || 'Dịch vụ chuyên nghiệp tại Wedding Studio' }}</p>
-      <span class="service-arrow">→</span>
+      <i class="fa-solid fa-arrow-right service-arrow"></i>
     </div>
   </div>
 </template>

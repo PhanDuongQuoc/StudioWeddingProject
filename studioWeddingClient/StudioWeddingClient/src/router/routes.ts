@@ -16,10 +16,12 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/trang-chu',
+    path: '/',
     component: () => import('@/layouts/UserLayout.vue'),
     children: [
-      { path: '', component: () => import('@/pages/user/UserHomePage.vue') },
+      { path: '', redirect: '/trang-chu' },
+      { path: 'trang-chu', component: () => import('@/pages/user/UserHomePage.vue') },
+      { path: 'album/:slug', component: () => import('@/pages/user/AlbumDetailPage.vue') },
       { path: 'second', component: () => import('@/pages/SecondPage.vue') },
     ]
   },
@@ -32,12 +34,12 @@ const routes: RouteRecordRaw[] = [
     ]
   },
   {
-    path: '/dang-nhap',
+    path: '/',
     component: () => import('@/layouts/AuthUserLayout.vue'),
     children: [
-      { path: '', component: () => import('@/pages/IndexPage.vue') },
-      { path: 'second', component: () => import('@/pages/SecondPage.vue') },
-    ]
+      { path: 'dang-nhap', component: () => import('@/pages/auth/LoginPage.vue') },
+      { path: 'dang-ky', component: () => import('@/pages/auth/RegisterPage.vue') },
+    ],
   },
 
   // Always leave this as last one,
