@@ -1,5 +1,5 @@
 <template>
-  <div class="album-card paper-card">
+  <router-link :to="`/album/${album.slug}`" class="album-card paper-card">
     <div class="album-cover-wrapper">
       <img
         :src="album?.coverImageUrl || defaultCover"
@@ -18,7 +18,7 @@
       <h3 class="album-title font-serif">{{ album?.title }}</h3>
       <p class="album-desc" v-if="album?.description">{{ album.description }}</p>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script setup lang="ts">

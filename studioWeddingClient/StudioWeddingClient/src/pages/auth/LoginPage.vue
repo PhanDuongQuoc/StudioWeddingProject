@@ -12,11 +12,7 @@
     <!-- Alert Banner for Errors -->
     <transition name="fade">
       <div v-if="errorMessage" class="error-banner">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="12"></line>
-          <line x1="12" y1="16" x2="12.01" y2="16"></line>
-        </svg>
+        <i class="fa-solid fa-circle-exclamation"></i>
         <span>{{ errorMessage }}</span>
       </div>
     </transition>
@@ -37,7 +33,7 @@
           lazy-rules
         >
           <template #prepend>
-            <q-icon name="mail_outline" size="18px" class="input-icon" />
+            <q-icon name="fa-regular fa-envelope" size="16px" class="input-icon" />
           </template>
         </q-input>
       </div>
@@ -60,13 +56,13 @@
           lazy-rules
         >
           <template #prepend>
-            <q-icon name="lock_outline" size="18px" class="input-icon" />
+            <q-icon name="fa-solid fa-lock" size="16px" class="input-icon" />
           </template>
           <template #append>
             <q-icon
-              :name="isPwdVisible ? 'visibility_off' : 'visibility'"
+              :name="isPwdVisible ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye'"
               class="cursor-pointer input-icon toggle-pwd"
-              size="18px"
+              size="16px"
               @click="isPwdVisible = !isPwdVisible"
             />
           </template>
@@ -149,7 +145,7 @@ async function handleLogin() {
         message: res.message || 'Đăng nhập thành công!',
         position: 'top',
         timeout: 2500,
-        icon: 'check_circle'
+        icon: 'fa-solid fa-circle-check'
       })
 
       // Redirect to home or admin dashboard depending on roles
@@ -159,15 +155,16 @@ async function handleLogin() {
         await router.push('/trang-chu')
       }
     }
-  } catch (err: any) {
-    const msg = err.response?.data?.message || err.message || 'Đăng nhập không thành công. Vui lòng thử lại!'
+  } catch (err: unknown) {
+    const errorObj = err as { response?: { data?: { message?: string } }; message?: string }
+    const msg = errorObj.response?.data?.message || errorObj.message || 'Đăng nhập không thành công. Vui lòng thử lại!'
     errorMessage.value = msg
     $q.notify({
       type: 'negative',
       message: msg,
       position: 'top',
       timeout: 3000,
-      icon: 'error_outline'
+      icon: 'fa-solid fa-circle-exclamation'
     })
   }
 }

@@ -1,9 +1,12 @@
 <template>
   <div class="review-card paper-card">
     <div class="review-stars">
-      <span v-for="star in 5" :key="star" class="star" :class="{ active: star <= (review?.rating || 5) }">
-        ★
-      </span>
+      <i
+        v-for="star in 5"
+        :key="star"
+        class="star"
+        :class="star <= (review?.rating || 5) ? 'fa-solid fa-star active' : 'fa-regular fa-star'"
+      ></i>
     </div>
 
     <h4 class="review-title font-serif" v-if="review?.title">{{ review.title }}</h4>

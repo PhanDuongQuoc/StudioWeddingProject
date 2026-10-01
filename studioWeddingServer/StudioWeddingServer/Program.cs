@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using StudioWeddingServer.Models;
 using StudioWeddingServer.Services.AuthServices.LoginServices;
 using StudioWeddingServer.Services.AuthServices.RegisterServices;
+using StudioWeddingServer.Services.UserPageServices.AlbumServices;
 using StudioWeddingServer.Services.UserPageServices.HomeServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,8 @@ builder.Services.AddScoped<IHomeService, HomeService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IRegisterService, RegisterService>();
 // Sign in JWT service for function login 
+// Sign in AlbumService 
+builder.Services.AddScoped<IAlbumService, AlbumService>();
 builder.Services.AddScoped<JwtService>();
 // Swagger
 builder.Services.AddEndpointsApiExplorer();

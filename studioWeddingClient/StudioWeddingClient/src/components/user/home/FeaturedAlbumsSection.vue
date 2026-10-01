@@ -9,7 +9,7 @@
         <template #action>
           <a href="#albums" class="view-all-link font-serif">
             <span>Xem tất cả album</span>
-            <span class="arrow">→</span>
+            <i class="fa-solid fa-arrow-right arrow"></i>
           </a>
         </template>
       </SectionTitle>

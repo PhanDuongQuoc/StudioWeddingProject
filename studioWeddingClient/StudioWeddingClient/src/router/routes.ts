@@ -16,10 +16,12 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/trang-chu',
+    path: '/',
     component: () => import('@/layouts/UserLayout.vue'),
     children: [
-      { path: '', component: () => import('@/pages/user/UserHomePage.vue') },
+      { path: '', redirect: '/trang-chu' },
+      { path: 'trang-chu', component: () => import('@/pages/user/UserHomePage.vue') },
+      { path: 'album/:slug', component: () => import('@/pages/user/AlbumDetailPage.vue') },
       { path: 'second', component: () => import('@/pages/SecondPage.vue') },
     ]
   },

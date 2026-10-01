@@ -22,7 +22,7 @@
       <!-- Feature List -->
       <ul class="package-features">
         <li v-for="(feature, idx) in featuresList" :key="idx">
-          <span class="bullet">•</span>
+          <i class="fa-solid fa-check bullet-icon"></i>
           <span>{{ feature }}</span>
         </li>
       </ul>
@@ -187,9 +187,10 @@ const featuresList = computed<string[]>(() => {
     gap: 8px;
     line-height: 1.45;
 
-    .bullet {
+    .bullet-icon {
       color: var(--color-burgundy);
-      font-weight: bold;
+      font-size: 0.8rem;
+      margin-top: 2px;
     }
   }
 }

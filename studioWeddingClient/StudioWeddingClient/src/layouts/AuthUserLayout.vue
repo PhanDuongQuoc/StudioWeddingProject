@@ -23,10 +23,7 @@
         </router-link>
 
         <router-link to="/trang-chu" class="back-home-link">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
+          <i class="fa-solid fa-arrow-left"></i>
           <span>Trang chủ</span>
         </router-link>
       </div>

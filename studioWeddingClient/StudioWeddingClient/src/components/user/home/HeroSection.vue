@@ -30,7 +30,7 @@
           <div class="hero-action">
             <a href="#albums" class="hero-cta-btn font-serif">
               <span>Khám phá album</span>
-              <span class="arrow">→</span>
+              <i class="fa-solid fa-arrow-right arrow"></i>
             </a>
           </div>
         </div>
