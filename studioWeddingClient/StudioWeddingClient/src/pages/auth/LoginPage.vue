@@ -42,7 +42,7 @@
       <div class="form-group">
         <div class="label-row">
           <label class="form-label" for="password-input">Mật khẩu <span class="req">*</span></label>
-          <a href="#quen-mat-khau" class="forgot-link">Quên mật khẩu?</a>
+          <router-link to="/quen-mat-khau" class="forgot-link">Quên mật khẩu?</router-link>
         </div>
         <q-input
           id="password-input"
@@ -113,12 +113,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, reactive, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { useAuthStore } from '@/stores/authStore'
 
 const router = useRouter()
+const route = useRoute()
 const $q = useQuasar()
 const authStore = useAuthStore()
 
@@ -129,6 +130,12 @@ const errorMessage = ref('')
 const form = reactive({
   email: '',
   password: '',
+})
+
+onMounted(() => {
+  if (route.query.email && typeof route.query.email === 'string') {
+    form.email = route.query.email
+  }
 })
 
 async function handleLogin() {

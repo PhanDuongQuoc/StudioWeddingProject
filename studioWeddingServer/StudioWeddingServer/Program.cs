@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.IdentityModel.Tokens;
+using StudioWeddingServer.DTOs.UserPageDTOs.AuthDTOs;
 using StudioWeddingServer.Models;
 using StudioWeddingServer.Services.AuthServices.LoginServices;
 using StudioWeddingServer.Services.AuthServices.RegisterServices;
+using StudioWeddingServer.Services.EmailServices;
+using StudioWeddingServer.Services.ForgotServices;
 using StudioWeddingServer.Services.UserPageServices.AlbumServices;
 using StudioWeddingServer.Services.UserPageServices.HomeServices;
 
@@ -13,6 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services
 builder.Services.AddControllers();
+
+// Đăng ký MemoryCache (dùng để lưu OTP tạm thời)
+builder.Services.AddMemoryCache();
+
 // Sign In Dependency Inject for HomePage 
 builder.Services.AddScoped<IHomeService, HomeService>();
 // Sign in Dependency Inject for AuthService
@@ -21,6 +28,11 @@ builder.Services.AddScoped<IRegisterService, RegisterService>();
 // Sign in JWT service for function login 
 // Sign in AlbumService 
 builder.Services.AddScoped<IAlbumService, AlbumService>();
+// Đăng ký cấu hình EmailSettings từ appsettings.json
+builder.Services.Configure<EmailSettingDto>(builder.Configuration.GetSection("EmailSettings"));
+// Đăng ký EmailService & ForgotService
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IForgotService, ForgotService>();
 builder.Services.AddScoped<JwtService>();
 // Swagger
 builder.Services.AddEndpointsApiExplorer();

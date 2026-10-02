@@ -39,6 +39,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       { path: 'dang-nhap', component: () => import('@/pages/auth/LoginPage.vue') },
       { path: 'dang-ky', component: () => import('@/pages/auth/RegisterPage.vue') },
+      { path: 'quen-mat-khau', component: () => import('@/pages/auth/ForgotPasswordPage.vue') },
     ],
   },
 
