@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StudioWeddingServer.DTOs.UserPageDTOs.AuthDTOs;
 using StudioWeddingServer.Services.AuthServices.LoginServices;
 using StudioWeddingServer.Services.AuthServices.RegisterServices;
+using StudioWeddingServer.Services.ForgotServices;
 namespace StudioWeddingServer.Controllers.AuthControllers;
 
 [ApiController]
@@ -11,10 +12,12 @@ public class AuthController : ControllerBase
 {
     private readonly ILoginService _loginservice;
     private readonly IRegisterService _registerservice;
-    public AuthController(ILoginService loginservice, IRegisterService registerservice)
+    private readonly IForgotService _forgotservice;
+    public AuthController(ILoginService loginservice, IRegisterService registerservice, IForgotService forgotservice)
     {
         _loginservice = loginservice;
         _registerservice = registerservice;
+        _forgotservice = forgotservice;
     }
 
     [HttpPost("login")]
@@ -39,6 +42,29 @@ public class AuthController : ControllerBase
         }
         return Ok(result);
     }
+
+    [HttpPost("send-forgot-otp")]
+    public async Task<IActionResult> SendForgotOtp(SendForgotOtpRequest request)
+    {
+        var result = await _forgotservice.SendForgotOtpAsync(request);
+        if (!result.Success)
+        {
+            return BadRequest(result);
+        }
+        return Ok(result);
+    }
+
+    [HttpPost("reset-password-with-otp")]
+    public async Task<IActionResult> ResetPasswordWithOtp(ResetPasswordWithOtpRequest request)
+    {
+        var result = await _forgotservice.ResetPasswordWithOtpAsync(request);
+        if (!result.Success)
+        {
+            return BadRequest(result);
+        }
+        return Ok(result);
+    }
+
 }
 
 

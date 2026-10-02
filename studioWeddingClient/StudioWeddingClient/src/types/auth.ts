@@ -41,3 +41,19 @@ export interface RegisterResponse {
   message: string
   user?: UserDto
 }
+
+export interface SendForgotOtpRequest {
+  email: string
+}
+
+export interface ResetPasswordWithOtpRequest {
+  email: string
+  otp: string
+  newPassword: string
+  confirmPassword: string
+}
+
+export interface ForgotPasswordResponse {
+  success: boolean
+  message: string
+}
