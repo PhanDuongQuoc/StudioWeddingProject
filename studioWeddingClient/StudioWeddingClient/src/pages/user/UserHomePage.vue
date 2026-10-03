@@ -1,10 +1,7 @@
 <template>
   <div class="user-home-page">
-    <!-- Loading State -->
-    <div v-if="isLoading" class="home-loading studio-container">
-      <div class="loading-spinner"></div>
-      <p class="font-serif">Đang tải dữ liệu Hỷ Sự Studio...</p>
-    </div>
+    <!-- Unified Loading State -->
+    <VintageLoading v-if="isLoading" text="Đang tải dữ liệu Hỷ Sự Studio..." />
 
     <!-- Error State -->
     <div v-else-if="error" class="home-error studio-container">
@@ -41,6 +38,7 @@ import { onMounted } from 'vue'
 import { useHome } from '@/composables/useHome'
 
 // Components
+import VintageLoading from '@/components/common/VintageLoading.vue'
 import HeroSection from '@/components/user/home/HeroSection.vue'
 import FeaturedAlbumsSection from '@/components/user/home/FeaturedAlbumsSection.vue'
 import ServicesSection from '@/components/user/home/ServicesSection.vue'
@@ -61,7 +59,6 @@ onMounted(async () => {
   background-color: var(--color-paper);
 }
 
-.home-loading,
 .home-error {
   min-height: 60vh;
   display: flex;
@@ -74,21 +71,6 @@ onMounted(async () => {
   p {
     font-size: 1.1rem;
     color: var(--color-muted);
-  }
-}
-
-.loading-spinner {
-  width: 42px;
-  height: 42px;
-  border: 3px solid var(--color-border);
-  border-top-color: var(--color-burgundy);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
   }
 }
 </style>

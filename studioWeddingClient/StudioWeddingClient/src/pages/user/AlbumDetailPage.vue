@@ -1,10 +1,7 @@
 <template>
   <div class="album-detail-page">
-    <!-- Loading State -->
-    <div v-if="isLoading" class="album-loading-state studio-container">
-      <div class="vintage-spinner"></div>
-      <p class="loading-text font-serif">Đang tải bộ ảnh...</p>
-    </div>
+    <!-- Unified Loading State -->
+    <VintageLoading v-if="isLoading" text="Đang tải bộ ảnh cưới..." />
 
     <!-- Error / Not Found State -->
     <div v-else-if="error || !album" class="album-error-state studio-container">
@@ -121,7 +118,8 @@
             <div
               v-for="(photo, index) in album.photos"
               :key="photo.photoId || index"
-              class="photo-brick paper-card"
+              class="photo-brick paper-card animate-film-reveal"
+              :style="{ animationDelay: `${(index % 6) * 0.08}s` }"
               @click="openLightbox(index)"
             >
               <!-- Film Header Strip -->
@@ -322,6 +320,7 @@ import { ref, computed, onMounted, onUnmounted, watch, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { useAlbumDetail } from '@/composables/useAlbumDetail'
+import VintageLoading from '@/components/common/VintageLoading.vue'
 
 const route = useRoute()
 const $q = useQuasar()

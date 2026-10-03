@@ -22,6 +22,7 @@ const routes: RouteRecordRaw[] = [
       { path: '', redirect: '/trang-chu' },
       { path: 'trang-chu', component: () => import('@/pages/user/UserHomePage.vue') },
       { path: 'album/:slug', component: () => import('@/pages/user/AlbumDetailPage.vue') },
+      { path: 'dich-vu/:slug', component: () => import('@/pages/user/ServiceDetailPage.vue') },
       { path: 'second', component: () => import('@/pages/SecondPage.vue') },
     ]
   },
