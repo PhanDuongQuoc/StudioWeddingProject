@@ -64,7 +64,11 @@
 
           <!-- Right Column: Form Router View -->
           <div class="auth-form-side">
-            <router-view />
+            <router-view #default="{ Component }">
+              <transition name="film-dissolve" mode="out-in">
+                <component :is="Component" />
+              </transition>
+            </router-view>
           </div>
 
         </div>

@@ -2,7 +2,11 @@
   <div class="user-layout">
     <AppHeader />
     <div class="layout-main-content">
-      <router-view />
+      <router-view #default="{ Component }">
+        <transition name="film-dissolve" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </div>
     <AppFooter />
   </div>

@@ -11,6 +11,7 @@ using StudioWeddingServer.Services.EmailServices;
 using StudioWeddingServer.Services.ForgotServices;
 using StudioWeddingServer.Services.UserPageServices.AlbumServices;
 using StudioWeddingServer.Services.UserPageServices.HomeServices;
+using StudioWeddingServer.Services.UserPageServices.ServiceServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,11 +29,14 @@ builder.Services.AddScoped<IRegisterService, RegisterService>();
 // Sign in JWT service for function login 
 // Sign in AlbumService 
 builder.Services.AddScoped<IAlbumService, AlbumService>();
-// Đăng ký cấu hình EmailSettings từ appsettings.json
+// Sign in Configution EmailSettings from appsettings.json
 builder.Services.Configure<EmailSettingDto>(builder.Configuration.GetSection("EmailSettings"));
-// Đăng ký EmailService & ForgotService
+// Sign in Configution EmailService & ForgotService
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IForgotService, ForgotService>();
+// Sign in Configution Service Service 
+builder.Services.AddScoped<IServiceService, ServiceService>();
+//
 builder.Services.AddScoped<JwtService>();
 // Swagger
 builder.Services.AddEndpointsApiExplorer();

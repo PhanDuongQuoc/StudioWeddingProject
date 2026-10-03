@@ -1,5 +1,5 @@
 <template>
-  <div class="service-card paper-card">
+  <div class="service-card paper-card" @click="goToDetail">
     <div class="service-header">
       <h3 class="service-title font-serif">{{ service?.name }}</h3>
       <span class="service-price" v-if="service?.price">
@@ -24,17 +24,25 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import type { HomeService } from '@/types/home'
 
-defineProps<{
+const props = defineProps<{
   service: HomeService
 }>()
 
+const router = useRouter()
 const defaultServiceImg = 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800&auto=format&fit=crop'
 
 const formatCurrency = (val: number | string | undefined) => {
   if (!val) return '0đ'
   return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(Number(val))
+}
+
+const goToDetail = () => {
+  if (props.service?.slug) {
+    void router.push(`/dich-vu/${props.service.slug}`)
+  }
 }
 </script>
 
