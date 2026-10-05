@@ -112,8 +112,18 @@
               ></textarea>
             </div>
 
-            <button type="submit" class="btn-vintage submit-btn font-serif">
-              Gửi yêu cầu tư vấn
+            <button
+              type="submit"
+              class="btn-vintage submit-btn font-serif"
+              :disabled="isSubmitting"
+            >
+              <span v-if="!isSubmitting">
+                Gửi yêu cầu tư vấn
+              </span>
+              <span v-else class="loading-state">
+                <i class="fa-solid fa-spinner fa-spin q-mr-sm"></i>
+                Đang gửi thông tin...
+              </span>
             </button>
           </form>
         </div>
@@ -123,8 +133,13 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { ref, reactive } from 'vue'
+import { useQuasar } from 'quasar'
 import SectionTitle from '@/components/common/SectionTitle.vue'
+import { sendContactEmail } from '@/services/homeService'
+
+const $q = useQuasar()
+const isSubmitting = ref(false)
 
 const form = reactive({
   fullName: '',
@@ -134,13 +149,68 @@ const form = reactive({
   message: ''
 })
 
-const handleSubmit = () => {
-  alert(`Cảm ơn bạn ${form.fullName}! Hỷ Sự Studio đã nhận được yêu cầu và sẽ liên hệ sớm nhất.`)
-  form.fullName = ''
-  form.phone = ''
-  form.email = ''
-  form.weddingDate = ''
-  form.message = ''
+const handleSubmit = async () => {
+  if (!form.fullName.trim() || !form.phone.trim() || !form.email.trim()) {
+    $q.notify({
+      type: 'warning',
+      message: 'Vui lòng điền đầy đủ Họ tên, Số điện thoại và Email.',
+      position: 'top',
+      icon: 'fa-solid fa-circle-exclamation',
+      timeout: 3000
+    })
+    return
+  }
+
+  isSubmitting.value = true
+
+  try {
+    const payload = {
+      nameCutomer: form.fullName.trim(),
+      phoneNumber: form.phone.trim(),
+      emailCustomer: form.email.trim(),
+      dataWedding: form.weddingDate ? new Date(form.weddingDate).toISOString() : new Date().toISOString(),
+      note: form.message.trim()
+    }
+
+    const response = await sendContactEmail(payload)
+
+    if (response && response.status) {
+      $q.notify({
+        type: 'positive',
+        message: `Cảm ơn bạn ${form.fullName}! Hỷ Sự Studio đã nhận được yêu cầu và sẽ liên hệ tư vấn sớm nhất.`,
+        position: 'top',
+        icon: 'fa-solid fa-circle-check',
+        timeout: 4500
+      })
+
+      // Reset form
+      form.fullName = ''
+      form.phone = ''
+      form.email = ''
+      form.weddingDate = ''
+      form.message = ''
+    } else {
+      $q.notify({
+        type: 'negative',
+        message: response?.message || 'Không thể gửi yêu cầu lúc này. Vui lòng thử lại!',
+        position: 'top',
+        icon: 'fa-solid fa-triangle-exclamation',
+        timeout: 3500
+      })
+    }
+  } catch (err: unknown) {
+    console.error('Lỗi khi gửi email liên hệ:', err)
+    const errorObj = err as { response?: { data?: { message?: string } }; message?: string }
+    $q.notify({
+      type: 'negative',
+      message: errorObj.response?.data?.message || 'Có lỗi xảy ra khi gửi thông tin. Vui lòng kiểm tra lại!',
+      position: 'top',
+      icon: 'fa-solid fa-triangle-exclamation',
+      timeout: 3500
+    })
+  } finally {
+    isSubmitting.value = false
+  }
 }
 </script>
 

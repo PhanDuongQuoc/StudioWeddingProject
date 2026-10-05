@@ -14,6 +14,9 @@ public class EmailService : IEmailService
         _settings = options.Value;
     }
 
+
+
+
     public async Task SendOtpEmailAsync(string toEmail, string otpCode)
     {
         var mailMessage = new MailMessage
@@ -49,4 +52,29 @@ public class EmailService : IEmailService
 
         await client.SendMailAsync(mailMessage);
     }
+
+    public async Task SendEmailAsync(string toEmail, string customerEmail, string subject, string body)
+    {
+        var email = new MailMessage();
+        email.From = new MailAddress(_settings.SenderEmail, _settings.SenderName);
+        email.To.Add(toEmail);
+        email.ReplyToList.Add(customerEmail);
+        email.Subject = subject;
+        email.Body = body;
+        email.IsBodyHtml = true;
+
+        var smtpClient = new SmtpClient(_settings.SmtpServer, _settings.SmtpPort)
+        {
+            Port = _settings.SmtpPort,
+            EnableSsl = true,
+            DeliveryMethod = SmtpDeliveryMethod.Network,
+            UseDefaultCredentials = false,
+            Credentials = new NetworkCredential(_settings.SenderEmail?.Trim(), _settings.Password?.Trim().Replace(" ", ""))
+        };
+
+        await smtpClient.SendMailAsync(email);
+    }
+
+
+
 }
