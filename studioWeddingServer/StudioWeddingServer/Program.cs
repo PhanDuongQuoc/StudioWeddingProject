@@ -10,7 +10,9 @@ using StudioWeddingServer.Services.AuthServices.RegisterServices;
 using StudioWeddingServer.Services.EmailServices;
 using StudioWeddingServer.Services.ForgotServices;
 using StudioWeddingServer.Services.UserPageServices.AlbumServices;
+using StudioWeddingServer.Services.UserPageServices.EmailServices;
 using StudioWeddingServer.Services.UserPageServices.HomeServices;
+using StudioWeddingServer.Services.UserPageServices.SendEmailServices;
 using StudioWeddingServer.Services.UserPageServices.ServiceServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +34,7 @@ builder.Services.AddScoped<IAlbumService, AlbumService>();
 // Sign in Configution EmailSettings from appsettings.json
 builder.Services.Configure<EmailSettingDto>(builder.Configuration.GetSection("EmailSettings"));
 // Sign in Configution EmailService & ForgotService
+builder.Services.AddScoped<ISendEmailService, SendEmailService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IForgotService, ForgotService>();
 // Sign in Configution Service Service 

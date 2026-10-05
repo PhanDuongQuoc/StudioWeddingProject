@@ -63,3 +63,16 @@ export interface HomeData {
   packages: HomePackage[]
   reviews: HomeReview[]
 }
+
+export interface ContactRequest {
+  nameCutomer: string
+  phoneNumber: string
+  emailCustomer: string
+  dataWedding?: string
+  note?: string
+}
+
+export interface ContactResponse {
+  status: boolean
+  message: string
+}
