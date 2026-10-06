@@ -9,9 +9,11 @@ using StudioWeddingServer.Services.AuthServices.LoginServices;
 using StudioWeddingServer.Services.AuthServices.RegisterServices;
 using StudioWeddingServer.Services.EmailServices;
 using StudioWeddingServer.Services.ForgotServices;
+using StudioWeddingServer.Services.UserPageServices.AboutServices;
 using StudioWeddingServer.Services.UserPageServices.AlbumServices;
 using StudioWeddingServer.Services.UserPageServices.EmailServices;
 using StudioWeddingServer.Services.UserPageServices.HomeServices;
+using StudioWeddingServer.Services.UserPageServices.PackageServices;
 using StudioWeddingServer.Services.UserPageServices.SendEmailServices;
 using StudioWeddingServer.Services.UserPageServices.ServiceServices;
 
@@ -39,7 +41,9 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IForgotService, ForgotService>();
 // Sign in Configution Service Service 
 builder.Services.AddScoped<IServiceService, ServiceService>();
-//
+// Sign in  PackageService
+builder.Services.AddScoped<IPackageService, StudioWeddingServer.Services.UserPageServices.PackageServices.PackageService>();
+builder.Services.AddScoped<IAboutService, AboutService>();
 builder.Services.AddScoped<JwtService>();
 // Swagger
 builder.Services.AddEndpointsApiExplorer();

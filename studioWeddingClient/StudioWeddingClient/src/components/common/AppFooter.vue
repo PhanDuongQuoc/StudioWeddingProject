@@ -11,11 +11,11 @@
         <div class="footer-links">
           <div class="footer-nav">
             <router-link to="/trang-chu">Trang chủ</router-link>
-            <a href="#gioi-thieu">Giới thiệu</a>
-            <a href="#albums">Album</a>
-            <a href="#dich-vu">Dịch vụ</a>
-            <a href="#goi-cuoi">Gói cưới</a>
-            <a href="#lien-he">Liên hệ</a>
+            <router-link to="/gioi-thieu">Giới thiệu</router-link>
+            <router-link to="/trang-chu#albums">Album</router-link>
+            <router-link to="/trang-chu#dich-vu">Dịch vụ</router-link>
+            <router-link to="/trang-chu#goi-cuoi">Gói cưới</router-link>
+            <router-link to="/trang-chu#lien-he">Liên hệ</router-link>
           </div>
           <div class="footer-contact-info">
             <p><strong>Địa chỉ:</strong> 123 Nguyễn Văn Cừ, Quận 5, TP. Hồ Chí Minh</p>

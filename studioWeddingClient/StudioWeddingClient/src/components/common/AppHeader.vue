@@ -20,12 +20,12 @@
 
       <!-- Desktop Navigation -->
       <nav class="desktop-nav">
-        <router-link to="/trang-chu" class="nav-link active">Trang chủ</router-link>
-        <a href="#gioi-thieu" class="nav-link">Giới thiệu</a>
-        <a href="#albums" class="nav-link">Album</a>
-        <a href="#dich-vu" class="nav-link">Dịch vụ</a>
-        <a href="#goi-cuoi" class="nav-link">Gói cưới</a>
-        <a href="#lien-he" class="nav-link">Liên hệ</a>
+        <router-link to="/trang-chu" class="nav-link" active-class="active">Trang chủ</router-link>
+        <router-link to="/gioi-thieu" class="nav-link" active-class="active">Giới thiệu</router-link>
+        <router-link to="/trang-chu#albums" class="nav-link">Album</router-link>
+        <router-link to="/trang-chu#dich-vu" class="nav-link">Dịch vụ</router-link>
+        <router-link to="/trang-chu#goi-cuoi" class="nav-link">Gói cưới</router-link>
+        <router-link to="/trang-chu#lien-he" class="nav-link">Liên hệ</router-link>
       </nav>
 
       <!-- Right Utility Actions -->
@@ -95,26 +95,26 @@
             <span>Trang chủ</span>
             <i class="fa-solid fa-chevron-right"></i>
           </router-link>
-          <a href="#gioi-thieu" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
+          <router-link to="/gioi-thieu" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
             <span>Giới thiệu</span>
             <i class="fa-solid fa-chevron-right"></i>
-          </a>
-          <a href="#albums" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
+          </router-link>
+          <router-link to="/trang-chu#albums" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
             <span>Album ảnh</span>
             <i class="fa-solid fa-chevron-right"></i>
-          </a>
-          <a href="#dich-vu" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
+          </router-link>
+          <router-link to="/trang-chu#dich-vu" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
             <span>Dịch vụ</span>
             <i class="fa-solid fa-chevron-right"></i>
-          </a>
-          <a href="#goi-cuoi" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
+          </router-link>
+          <router-link to="/trang-chu#goi-cuoi" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
             <span>Gói cưới</span>
             <i class="fa-solid fa-chevron-right"></i>
-          </a>
-          <a href="#lien-he" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
+          </router-link>
+          <router-link to="/trang-chu#lien-he" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
             <span>Liên hệ tư vấn</span>
             <i class="fa-solid fa-chevron-right"></i>
-          </a>
+          </router-link>
         </nav>
 
         <!-- Mobile Drawer Utilities & Auth -->

@@ -1,5 +1,5 @@
 <template>
-  <div class="package-card paper-card" :class="{ 'is-featured': isFeatured }">
+  <div class="package-card paper-card" :class="{ 'is-featured': isFeatured }" @click="goToDetail">
     <!-- Featured Badge -->
     <div v-if="isFeatured" class="featured-badge">
       Phổ biến
@@ -30,10 +30,12 @@
       <!-- Action Button -->
       <div class="package-action">
         <button
-          class="package-btn"
+          class="package-btn font-serif"
           :class="isFeatured ? 'btn-vintage' : 'btn-vintage-outline'"
+          @click.stop="goToDetail"
         >
-          Đặt ngay
+          <span>Xem chi tiết & Đặt ngay</span>
+          <i class="fa-solid fa-arrow-right q-ml-xs"></i>
         </button>
       </div>
     </div>
@@ -42,6 +44,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import type { HomePackage } from '@/types/home'
 
 const props = defineProps<{
@@ -49,7 +52,14 @@ const props = defineProps<{
   isFeatured?: boolean
 }>()
 
+const router = useRouter()
 const defaultPkgImg = 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop'
+
+const goToDetail = () => {
+  if (props.pkg?.slug) {
+    void router.push(`/goi-cuoi/${props.pkg.slug}`)
+  }
+}
 
 const formatCurrency = (val: number | string | undefined) => {
   if (!val) return '0đ'
