@@ -6,10 +6,18 @@ namespace StudioWeddingServer.Models;
 
 public partial class StudioWeddingDbContext : DbContext
 {
+    public StudioWeddingDbContext()
+    {
+    }
+
     public StudioWeddingDbContext(DbContextOptions<StudioWeddingDbContext> options)
         : base(options)
     {
     }
+
+    public virtual DbSet<AboutTimeline> AboutTimelines { get; set; }
+
+    public virtual DbSet<AboutU> AboutUs { get; set; }
 
     public virtual DbSet<Album> Albums { get; set; }
 
@@ -49,9 +57,83 @@ public partial class StudioWeddingDbContext : DbContext
 
     public virtual DbSet<UserRole> UserRoles { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=StudioWeddingDB;Username=postgres;Password=Quoc@123");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresExtension("pgcrypto");
+
+        modelBuilder.Entity<AboutTimeline>(entity =>
+        {
+            entity.HasKey(e => e.TimelineId).HasName("about_timelines_pkey");
+
+            entity.ToTable("about_timelines");
+
+            entity.HasIndex(e => e.AboutId, "idx_about_timelines_about_id");
+
+            entity.Property(e => e.TimelineId).HasColumnName("timeline_id");
+            entity.Property(e => e.AboutId).HasColumnName("about_id");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.DisplayOrder)
+                .HasDefaultValue(0)
+                .HasColumnName("display_order");
+            entity.Property(e => e.Title)
+                .HasMaxLength(200)
+                .HasColumnName("title");
+            entity.Property(e => e.Year)
+                .HasMaxLength(20)
+                .HasColumnName("year");
+
+            entity.HasOne(d => d.About).WithMany(p => p.AboutTimelines)
+                .HasForeignKey(d => d.AboutId)
+                .HasConstraintName("fk_about_timelines_about");
+        });
+
+        modelBuilder.Entity<AboutU>(entity =>
+        {
+            entity.HasKey(e => e.AboutId).HasName("about_us_pkey");
+
+            entity.ToTable("about_us");
+
+            entity.Property(e => e.AboutId).HasColumnName("about_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("created_at");
+            entity.Property(e => e.FounderName)
+                .HasMaxLength(150)
+                .HasColumnName("founder_name");
+            entity.Property(e => e.FounderQuote).HasColumnName("founder_quote");
+            entity.Property(e => e.HappyCouples)
+                .HasDefaultValue(3000)
+                .HasColumnName("happy_couples");
+            entity.Property(e => e.HeroImageUrl).HasColumnName("hero_image_url");
+            entity.Property(e => e.HeroSubtitle).HasColumnName("hero_subtitle");
+            entity.Property(e => e.HeroTitle)
+                .HasMaxLength(255)
+                .HasColumnName("hero_title");
+            entity.Property(e => e.IsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("is_active");
+            entity.Property(e => e.SatisfactionRate)
+                .HasMaxLength(50)
+                .HasDefaultValueSql("'99.8%'::character varying")
+                .HasColumnName("satisfaction_rate");
+            entity.Property(e => e.StoryContent).HasColumnName("story_content");
+            entity.Property(e => e.StoryImageUrl).HasColumnName("story_image_url");
+            entity.Property(e => e.StoryTitle)
+                .HasMaxLength(255)
+                .HasColumnName("story_title");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("updated_at");
+            entity.Property(e => e.YearsExperience)
+                .HasDefaultValue(28)
+                .HasColumnName("years_experience");
+        });
 
         modelBuilder.Entity<Album>(entity =>
         {
