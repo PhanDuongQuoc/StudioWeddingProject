@@ -23,3 +23,36 @@ export interface AlbumDetailDto {
   categorySlug: string
   photos: PhotoDto[]
 }
+
+export interface AlbumItemDto {
+  albumId: number
+  title: string
+  slug: string
+  description?: string | null
+  coverImageUrl?: string | null
+  categoryId: number
+  categoryName: string
+  categorySlug: string
+  totalPhotos: number
+  isFeatured: boolean
+  displayOrder: number
+  createdAt: string
+}
+
+export interface CategoryFilterDto {
+  categoryId: number
+  name: string
+  slug: string
+  albumCount: number
+}
+
+export interface AlbumListResponse {
+  items: AlbumItemDto[]
+  categories: CategoryFilterDto[]
+  totalItems: number
+  page: number
+  pageSize: number
+  totalPages: number
+  success: boolean
+  message: string
+}

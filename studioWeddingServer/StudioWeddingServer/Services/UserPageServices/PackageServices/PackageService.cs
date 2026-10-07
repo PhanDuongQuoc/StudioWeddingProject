@@ -13,6 +13,78 @@ public class PackageService : IPackageService
         _context = context;
     }
 
+    public async Task<PackageListResponseDto> GetPackagesAsync(string? search, int page = 1, int pageSize = 12)
+    {
+        if (page < 1) page = 1;
+        if (pageSize <= 0) pageSize = 12;
+
+        var query = _context.Packages
+            .AsNoTracking()
+            .Include(p => p.PackageServices)
+                .ThenInclude(ps => ps.Service)
+            .Include(p => p.BookingItems)
+            .Where(p => p.IsActive);
+
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            var term = search.Trim().ToLower();
+            query = query.Where(p => p.Name.ToLower().Contains(term) || (p.Description != null && p.Description.ToLower().Contains(term)));
+        }
+
+        var totalItems = await query.CountAsync();
+        var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+        var items = await query
+            .OrderBy(p => p.Price)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(p => new PackageItemDto
+            {
+                PackageId = p.PackageId,
+                Name = p.Name,
+                Slug = p.Slug,
+                Description = p.Description,
+                Price = p.Price,
+                ImageUrl = p.ImageUrl,
+                CountBooking = p.BookingItems.Count,
+                IsPopular = p.BookingItems.Count >= 2 || p.Name.Contains("Cao Cấp") || p.Name.Contains("Premium"),
+                IncludedServiceNames = p.PackageServices
+                    .Where(ps => ps.Service != null && ps.Service.IsActive)
+                    .Select(ps => ps.Service.Name)
+                    .ToList(),
+                IncludedServices = p.PackageServices
+                    .Where(ps => ps.Service != null && ps.Service.IsActive)
+                    .Select(ps => new PackageIncludedServiceDto
+                    {
+                        ServiceId = ps.ServiceId,
+                        Name = ps.Service.Name,
+                        Slug = ps.Service.Slug,
+                        Description = ps.Service.Description,
+                        UnitPrice = ps.Service.Price,
+                        Quantity = ps.Quantity > 0 ? ps.Quantity : 1,
+                        DurationMinutes = ps.Service.DurationMinutes,
+                        ImageUrl = ps.Service.ImageUrl
+                    })
+                    .ToList(),
+                OriginalTotalPrice = p.PackageServices
+                    .Where(ps => ps.Service != null && ps.Service.IsActive)
+                    .Sum(ps => ps.Service.Price * (ps.Quantity > 0 ? ps.Quantity : 1)),
+                CreatedAt = p.CreatedAt
+            })
+            .ToListAsync();
+
+        return new PackageListResponseDto
+        {
+            Items = items,
+            TotalItems = totalItems,
+            Page = page,
+            PageSize = pageSize,
+            TotalPages = totalPages,
+            Success = true,
+            Message = "Thành công"
+        };
+    }
+
     public async Task<PackageDetailResponse> GetPackageDetailAsync(string slug, int orderPage = 1, int orderPageSize = 3)
     {
         if (string.IsNullOrWhiteSpace(slug))
@@ -57,7 +129,7 @@ public class PackageService : IPackageService
             })
             .ToList();
 
-        // 4. Query danh sách các gói cưới gợi ý khác (Phân trang)
+        // Query danh sách các gói cưới gợi ý khác (Phân trang)
         var otherQuery = _context.Packages.AsNoTracking()
             .Where(p => p.IsActive && p.PackageId != package.PackageId);
 
@@ -76,7 +148,6 @@ public class PackageService : IPackageService
             })
             .ToListAsync();
 
-        // 5. Trả về kết quả hoàn chỉnh
         return new PackageDetailResponse
         {
             PackageId = package.PackageId,

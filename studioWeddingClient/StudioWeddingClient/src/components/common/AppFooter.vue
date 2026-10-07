@@ -12,10 +12,10 @@
           <div class="footer-nav">
             <router-link to="/trang-chu">Trang chủ</router-link>
             <router-link to="/gioi-thieu">Giới thiệu</router-link>
-            <router-link to="/trang-chu#albums">Album</router-link>
-            <router-link to="/trang-chu#dich-vu">Dịch vụ</router-link>
-            <router-link to="/trang-chu#goi-cuoi">Gói cưới</router-link>
-            <router-link to="/trang-chu#lien-he">Liên hệ</router-link>
+            <router-link to="/album">Album</router-link>
+            <router-link to="/dich-vu">Dịch vụ</router-link>
+            <router-link to="/goi-cuoi">Gói cưới</router-link>
+            <router-link to="/lien-he">Liên hệ</router-link>
           </div>
           <div class="footer-contact-info">
             <p><strong>Địa chỉ:</strong> 123 Nguyễn Văn Cừ, Quận 5, TP. Hồ Chí Minh</p>

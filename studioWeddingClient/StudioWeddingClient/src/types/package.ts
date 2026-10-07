@@ -36,3 +36,28 @@ export interface PackageDetailResponse {
   success: boolean
   message: string
 }
+
+export interface PackageItemDto {
+  packageId: number
+  name: string
+  slug: string
+  description?: string | null
+  price: number
+  imageUrl?: string | null
+  countBooking: number
+  originalTotalPrice?: number | null
+  isPopular: boolean
+  includedServiceNames: string[]
+  includedServices: PackageIncludedServiceDto[]
+  createdAt: string
+}
+
+export interface PackageListResponse {
+  items: PackageItemDto[]
+  totalItems: number
+  page: number
+  pageSize: number
+  totalPages: number
+  success: boolean
+  message: string
+}

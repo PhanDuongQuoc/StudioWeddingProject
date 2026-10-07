@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using StudioWeddingServer.DTOs.UserPageDTOs.ServiceDTOs;
 using StudioWeddingServer.Services.UserPageServices.ServiceServices;
 
 namespace StudioWeddingServer.Controllers.UserPageControllers;
@@ -12,6 +13,13 @@ public class ServiceController : ControllerBase
     public ServiceController(IServiceService serviceService)
     {
         _serviceService = serviceService;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<ServiceListResponseDto>> GetServices([FromQuery] string? search, [FromQuery] int page = 1, [FromQuery] int pageSize = 12)
+    {
+        var result = await _serviceService.GetServicesAsync(search, page, pageSize);
+        return Ok(result);
     }
 
     [HttpGet("slug/{slug}")]

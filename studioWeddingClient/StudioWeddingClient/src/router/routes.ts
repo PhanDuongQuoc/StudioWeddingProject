@@ -22,9 +22,13 @@ const routes: RouteRecordRaw[] = [
       { path: '', redirect: '/trang-chu' },
       { path: 'trang-chu', component: () => import('@/pages/user/UserHomePage.vue') },
       { path: 'gioi-thieu', component: () => import('@/pages/user/AboutPage.vue') },
+      { path: 'album', component: () => import('@/pages/user/AlbumPage.vue') },
       { path: 'album/:slug', component: () => import('@/pages/user/AlbumDetailPage.vue') },
+      { path: 'dich-vu', component: () => import('@/pages/user/ServicePage.vue') },
       { path: 'dich-vu/:slug', component: () => import('@/pages/user/ServiceDetailPage.vue') },
+      { path: 'goi-cuoi', component: () => import('@/pages/user/PackagePage.vue') },
       { path: 'goi-cuoi/:slug', component: () => import('@/pages/user/PackageDetailPage.vue') },
+      { path: 'lien-he', component: () => import('@/pages/user/ContactPage.vue') },
       { path: 'second', component: () => import('@/pages/SecondPage.vue') },
     ]
   },
