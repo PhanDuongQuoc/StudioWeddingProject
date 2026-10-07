@@ -15,6 +15,13 @@ public class AlbumController : ControllerBase
         _albumService = albumService;
     }
 
+    [HttpGet]
+    public async Task<ActionResult<AlbumListResponseDto>> GetAlbums([FromQuery] string? categorySlug, [FromQuery] string? search, [FromQuery] int page = 1, [FromQuery] int pageSize = 9)
+    {
+        var result = await _albumService.GetAlbumsAsync(categorySlug, search, page, pageSize);
+        return Ok(result);
+    }
+
     [HttpGet("slug/{slug}")]
     public async Task<ActionResult<AlbumDetailDto>> Get(string slug)
     {

@@ -22,9 +22,9 @@
       <nav class="desktop-nav">
         <router-link to="/trang-chu" class="nav-link" active-class="active">Trang chủ</router-link>
         <router-link to="/gioi-thieu" class="nav-link" active-class="active">Giới thiệu</router-link>
-        <router-link to="/trang-chu#albums" class="nav-link">Album</router-link>
-        <router-link to="/trang-chu#dich-vu" class="nav-link">Dịch vụ</router-link>
-        <router-link to="/trang-chu#goi-cuoi" class="nav-link">Gói cưới</router-link>
+        <router-link to="/album" class="nav-link" active-class="active">Album</router-link>
+        <router-link to="/dich-vu" class="nav-link" active-class="active">Dịch vụ</router-link>
+        <router-link to="/goi-cuoi" class="nav-link" active-class="active">Gói cưới</router-link>
         <router-link to="/trang-chu#lien-he" class="nav-link">Liên hệ</router-link>
       </nav>
 
@@ -99,15 +99,15 @@
             <span>Giới thiệu</span>
             <i class="fa-solid fa-chevron-right"></i>
           </router-link>
-          <router-link to="/trang-chu#albums" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
+          <router-link to="/album" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
             <span>Album ảnh</span>
             <i class="fa-solid fa-chevron-right"></i>
           </router-link>
-          <router-link to="/trang-chu#dich-vu" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
+          <router-link to="/dich-vu" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
             <span>Dịch vụ</span>
             <i class="fa-solid fa-chevron-right"></i>
           </router-link>
-          <router-link to="/trang-chu#goi-cuoi" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
+          <router-link to="/goi-cuoi" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
             <span>Gói cưới</span>
             <i class="fa-solid fa-chevron-right"></i>
           </router-link>
