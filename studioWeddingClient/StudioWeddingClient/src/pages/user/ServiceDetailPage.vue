@@ -9,9 +9,9 @@
         <i class="fa-solid fa-circle-exclamation error-icon"></i>
         <h2 class="error-title font-serif">Không tìm thấy Dịch Vụ</h2>
         <p class="error-desc">{{ error || 'Dịch vụ bạn đang tìm kiếm không tồn tại hoặc đã ngừng hoạt động.' }}</p>
-        <router-link to="/trang-chu#dich-vu" class="btn-vintage back-btn font-serif">
+        <router-link to="/dich-vu" class="btn-vintage back-btn font-serif">
           <i class="fa-solid fa-arrow-left"></i>
-          <span>Quay lại trang chủ</span>
+          <span>Quay lại trang Dịch vụ</span>
         </router-link>
       </div>
     </div>
@@ -24,7 +24,7 @@
           <nav class="breadcrumb-trail" aria-label="Breadcrumb">
             <router-link to="/trang-chu">Trang chủ</router-link>
             <span class="sep">/</span>
-            <router-link to="/trang-chu#dich-vu">Dịch vụ</router-link>
+            <router-link to="/dich-vu">Dịch vụ</router-link>
             <span class="sep">/</span>
             <span class="current-crumb">{{ service.name }}</span>
           </nav>
@@ -651,29 +651,7 @@ watch(
   }
 
   .breadcrumb-trail {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.88rem;
-    color: var(--color-muted);
-
-    a {
-      color: var(--color-ink-soft);
-      text-decoration: none;
-      transition: color 0.2s ease;
-
-      &:hover {
-        color: var(--color-burgundy);
-      }
-    }
-
-    .sep {
-      color: var(--color-border);
-    }
-
     .current-crumb {
-      color: var(--color-burgundy);
-      font-weight: 500;
       max-width: 280px;
       white-space: nowrap;
       overflow: hidden;

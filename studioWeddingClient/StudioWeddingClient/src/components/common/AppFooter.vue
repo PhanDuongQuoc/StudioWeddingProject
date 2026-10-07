@@ -15,7 +15,7 @@
             <router-link to="/album">Album</router-link>
             <router-link to="/dich-vu">Dịch vụ</router-link>
             <router-link to="/goi-cuoi">Gói cưới</router-link>
-            <router-link to="/trang-chu#lien-he">Liên hệ</router-link>
+            <router-link to="/lien-he">Liên hệ</router-link>
           </div>
           <div class="footer-contact-info">
             <p><strong>Địa chỉ:</strong> 123 Nguyễn Văn Cừ, Quận 5, TP. Hồ Chí Minh</p>

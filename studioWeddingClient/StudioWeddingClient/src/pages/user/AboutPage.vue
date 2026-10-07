@@ -40,58 +40,92 @@
         </div>
       </section>
 
-      <!-- Section 1: Hero Masthead Showcase -->
+      <!-- Section 1: Cinematic Full-Width Hero Banner Showcase -->
       <section class="about-hero-section">
-        <div class="studio-container">
-          <div class="hero-masthead paper-card">
-            <!-- Vintage Analog Film Timecode Strip -->
-            <div class="film-timecode-bar">
-              <div class="timecode-left">
-                <span class="rec-dot"></span>
-                <span class="rec-label">REC [●] 1998 — 2026</span>
-                <span class="film-sep">·</span>
-                <span class="film-stock font-chinese">喜事・百年好合</span>
-              </div>
-              <div class="timecode-right">
-                <span class="archive-tag font-serif">HỶ SỰ HERITAGE ARCHIVE</span>
+        <div class="cinematic-hero-banner">
+          <!-- Background Image with Gradient Overlay & Grain -->
+          <div class="banner-bg-wrapper">
+            <img
+              :src="aboutData.heroImageUrl || defaultHeroImg"
+              alt="Hỷ Sự Wedding Studio Heritage"
+              class="banner-bg-img"
+            />
+            <div class="banner-overlay"></div>
+            <div class="banner-grain-layer"></div>
+          </div>
+
+          <!-- Top Film Perforation Strip / Sprocket Holes & Timecode -->
+          <div class="banner-film-strip-top">
+            <div class="sprocket-holes-row">
+              <span v-for="i in 28" :key="'sprocket-top-' + i" class="sprocket-hole"></span>
+            </div>
+            <div class="studio-container">
+              <div class="banner-timecode-bar">
+                <div class="timecode-left">
+                  <span class="rec-dot"></span>
+                  <span class="rec-label font-serif">REC [●] 1998 — 2026</span>
+                  <span class="film-sep">·</span>
+                  <span class="film-stock font-chinese">喜事 · 百年好合</span>
+                </div>
+                <div class="timecode-right">
+                  <span class="archive-tag font-serif">HỶ SỰ HERITAGE ARCHIVE · 35MM KODAK GOLD</span>
+                </div>
               </div>
             </div>
+          </div>
 
-            <!-- Hero Header Content -->
-            <div class="hero-text-content">
+          <!-- Central Hero Banner Content -->
+          <div class="studio-container banner-content-container">
+            <div class="banner-content-inner">
+              <!-- Seal Badge -->
               <div class="hero-seal-badge">
                 <span class="seal-icon font-chinese">囍</span>
                 <span class="seal-text font-serif">KÝ ỨC ĐIỆN ẢNH HONG KONG 90S</span>
               </div>
 
+              <!-- Main Title -->
               <h1 class="hero-main-title font-serif">
-                {{ aboutData.heroTitle || '28 Năm Lưu Giữ Khoảnh Khắc Hạnh Phúc & Ký Ức Hoài Niệm' }}
+                {{ aboutData.heroTitle || 'Nơi Lưu Giữ Tình Yêu Bằng Nước Màu Ký Ức' }}
               </h1>
 
+              <!-- Subtitle -->
               <p class="hero-subtitle font-serif">
-                {{ aboutData.heroSubtitle || 'Mỗi thước phim cưới là một khúc tình ca vượt thời gian. Chúng tôi gìn giữ trọn vẹn sự chân thành, nét duyên thầm và rung cảm nguyên bản của ngày chung đôi.' }}
+                {{ aboutData.heroSubtitle || 'Hỷ Sự Studio — Hành trình 28 năm gìn giữ nghệ thuật ảnh cưới mang đậm chất hoài niệm điện ảnh Hong Kong thập niên 90.' }}
               </p>
-            </div>
 
-            <!-- Hero Framed Visual -->
-            <div class="hero-visual-frame">
-              <div class="film-border-top">
-                <span v-for="i in 12" :key="'hole-top-' + i" class="sprocket-hole"></span>
+              <!-- Action CTAs -->
+              <div class="banner-actions">
+                <button @click="scrollToSection('brand-story')" class="btn-banner-primary font-serif">
+                  <i class="fa-solid fa-book-open q-mr-xs"></i>
+                  <span>Khám phá câu chuyện</span>
+                </button>
+                <router-link to="/album" class="btn-banner-outline font-serif">
+                  <i class="fa-solid fa-images q-mr-xs"></i>
+                  <span>Xem album ảnh cưới</span>
+                </router-link>
               </div>
-              <div class="hero-img-wrapper">
-                <img
-                  :src="aboutData.heroImageUrl || defaultHeroImg"
-                  alt="Hỷ Sự Wedding Studio Heritage"
-                  class="hero-img film-grain"
-                />
-                <div class="hero-img-caption">
-                  <span class="font-chinese">良緣夙締 · 佳偶天成</span>
-                  <span class="caption-date font-serif">ARCHIVED AT HY SU STUDIO 1998</span>
+            </div>
+          </div>
+
+          <!-- Bottom Film Metadata Bar & Sprockets -->
+          <div class="banner-film-strip-bottom">
+            <div class="studio-container">
+              <div class="banner-meta-row font-serif">
+                <div class="meta-item">
+                  <i class="fa-solid fa-film q-mr-xs"></i>
+                  <span>ISO 400 · 35MM ANALOGUE FILM</span>
+                </div>
+                <div class="meta-item-center font-chinese">
+                  良緣夙締 · 佳偶天成
+                </div>
+                <div class="meta-item">
+                  <i class="fa-solid fa-location-dot q-mr-xs"></i>
+                  <span>SÀI GÒN 1998 — 2026</span>
                 </div>
               </div>
-              <div class="film-border-bottom">
-                <span v-for="i in 12" :key="'hole-bot-' + i" class="sprocket-hole"></span>
-              </div>
+            </div>
+            <div class="sprocket-holes-row">
+              <span v-for="i in 28" :key="'sprocket-bot-' + i" class="sprocket-hole"></span>
             </div>
           </div>
         </div>
@@ -145,7 +179,7 @@
       </section>
 
       <!-- Section 3: Brand Story (Editorial 2-Column Split) -->
-      <section class="brand-story-section">
+      <section id="brand-story" class="brand-story-section">
         <div class="studio-container">
           <div class="story-grid">
             <!-- Left: Darkroom & Vintage Photo Showcase -->
@@ -454,6 +488,13 @@ async function copyShareLink() {
   }
 }
 
+function scrollToSection(sectionId: string) {
+  const el = document.getElementById(sectionId)
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+}
+
 onMounted(async () => {
   window.scrollTo({ top: 0, behavior: 'instant' })
   await fetchAboutData(1)
@@ -473,7 +514,7 @@ onMounted(async () => {
   background-color: var(--color-paper-light);
   border-bottom: 1px solid var(--color-border);
   padding: 14px 0;
-  margin-bottom: 36px;
+  margin-bottom: 0;
 
   .breadcrumb-inner {
     display: flex;
@@ -484,29 +525,7 @@ onMounted(async () => {
   }
 
   .breadcrumb-trail {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.92rem;
-
-    a {
-      color: var(--color-ink-soft);
-      text-decoration: none;
-      transition: color 0.2s;
-
-      &:hover {
-        color: var(--color-burgundy);
-      }
-    }
-
-    .sep {
-      color: var(--color-border);
-    }
-
-    .current-crumb {
-      color: var(--color-burgundy);
-      font-weight: 600;
-    }
+    // Inherits standardized typography & color from global app.scss
   }
 
   .share-link-btn {
@@ -530,176 +549,285 @@ onMounted(async () => {
   }
 }
 
-// Section 1: Hero Masthead Showcase
+// Section 1: Cinematic Full-Width Hero Banner
 .about-hero-section {
-  margin-bottom: 60px;
+  width: 100%;
+  margin-bottom: 70px;
 
-  .hero-masthead {
-    padding: 36px;
-    background-color: var(--color-paper-light);
-    border: 1px solid var(--color-border);
+  .cinematic-hero-banner {
     position: relative;
-    box-shadow: 0 8px 30px rgba(36, 36, 33, 0.05);
+    width: 100%;
+    border-radius: 0;
+    overflow: hidden;
+    min-height: 560px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 18px 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 16px 40px rgba(36, 36, 33, 0.16);
+    background-color: var(--color-film-dark);
 
     @media (max-width: 768px) {
-      padding: 20px 16px;
+      min-height: 500px;
+      padding: 14px 0;
     }
   }
 
-  .film-timecode-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 18px;
-    margin-bottom: 24px;
-    border-bottom: 1px dashed var(--color-border);
-    font-size: 0.82rem;
-    color: var(--color-muted);
+  .banner-bg-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
 
-    .timecode-left {
+    .banner-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transform: scale(1.02);
+      transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(142, 41, 41, 0.22) 0%, transparent 65%),
+        linear-gradient(180deg, rgba(20, 26, 26, 0.65) 0%, rgba(20, 26, 26, 0.5) 40%, rgba(20, 26, 26, 0.92) 100%);
+    }
+
+    .banner-grain-layer {
+      position: absolute;
+      inset: 0;
+      opacity: 0.2;
+      background-image: radial-gradient(#FAF7F0 0.75px, transparent 0.75px);
+      background-size: 8px 8px;
+      pointer-events: none;
+    }
+  }
+
+  .cinematic-hero-banner:hover .banner-bg-img {
+    transform: scale(1.06);
+  }
+
+  // Sprocket Holes Film Effect
+  .sprocket-holes-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    padding: 0 16px;
+
+    .sprocket-hole {
+      width: 14px;
+      height: 8px;
+      background: rgba(250, 247, 240, 0.25);
+      border-radius: 2px;
+      border: 1px solid rgba(250, 247, 240, 0.12);
+
+      @media (max-width: 768px) {
+        width: 8px;
+        height: 5px;
+      }
+    }
+  }
+
+  .banner-film-strip-top {
+    position: relative;
+    z-index: 2;
+
+    .banner-timecode-bar {
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
+      padding-top: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed rgba(250, 247, 240, 0.2);
+      font-size: 0.82rem;
+      color: rgba(250, 247, 240, 0.8);
 
-      .rec-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: #d32f2f;
-        box-shadow: 0 0 8px rgba(211, 47, 47, 0.6);
-        animation: recBlink 1.4s infinite;
+      @media (max-width: 600px) {
+        flex-direction: column;
+        gap: 6px;
+        align-items: flex-start;
       }
 
-      .rec-label {
-        font-weight: 600;
-        letter-spacing: 0.5px;
+      .timecode-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .rec-dot {
+          width: 9px;
+          height: 9px;
+          border-radius: 50%;
+          background-color: #d32f2f;
+          box-shadow: 0 0 8px rgba(211, 47, 47, 0.8);
+          animation: recBlink 1.4s infinite;
+        }
+
+        .rec-label {
+          font-weight: 600;
+          letter-spacing: 0.5px;
+        }
+
+        .film-sep {
+          color: rgba(250, 247, 240, 0.4);
+        }
+
+        .film-stock {
+          color: #E2B878;
+          font-weight: 600;
+        }
       }
 
-      .film-stock {
-        color: var(--color-burgundy);
-        font-weight: 600;
+      .archive-tag {
+        font-size: 0.78rem;
+        letter-spacing: 1px;
+        color: rgba(250, 247, 240, 0.7);
       }
-    }
-
-    .archive-tag {
-      font-size: 0.78rem;
-      letter-spacing: 1px;
     }
   }
 
-  .hero-text-content {
+  // Central Banner Content
+  .banner-content-inner {
+    position: relative;
+    z-index: 2;
     text-align: center;
     max-width: 860px;
-    margin: 0 auto 32px;
+    margin: 40px auto;
+    padding: 0 16px;
 
     .hero-seal-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background-color: rgba(142, 41, 41, 0.08);
-      border: 1px solid rgba(142, 41, 41, 0.25);
-      padding: 4px 16px;
-      border-radius: 20px;
-      margin-bottom: 16px;
+      background-color: rgba(142, 41, 41, 0.85);
+      border: 1px solid rgba(226, 184, 120, 0.6);
+      padding: 6px 20px;
+      border-radius: 30px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 
       .seal-icon {
-        color: var(--color-burgundy);
-        font-size: 1.1rem;
+        color: #FAF7F0;
+        font-size: 1.15rem;
         font-weight: bold;
       }
 
       .seal-text {
-        color: var(--color-burgundy);
+        color: #FAF7F0;
         font-size: 0.82rem;
         font-weight: 600;
-        letter-spacing: 1px;
+        letter-spacing: 1.5px;
       }
     }
 
     .hero-main-title {
-      font-size: clamp(1.75rem, 4vw, 2.75rem);
-      line-height: 1.3;
-      color: var(--color-ink);
+      font-size: clamp(1.85rem, 4.2vw, 3rem);
+      line-height: 1.28;
+      color: #FAF7F0;
       margin-bottom: 18px;
       font-weight: 700;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.7);
+      letter-spacing: -0.2px;
     }
 
     .hero-subtitle {
-      font-size: clamp(1rem, 2vw, 1.18rem);
+      font-size: clamp(1rem, 1.8vw, 1.18rem);
       line-height: 1.7;
-      color: var(--color-ink-soft);
+      color: #E2D9C8;
       font-style: italic;
+      margin-bottom: 28px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
     }
-  }
 
-  .hero-visual-frame {
-    background-color: var(--color-film-dark);
-    padding: 12px 16px;
-    border-radius: 4px;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
-
-    .film-border-top,
-    .film-border-bottom {
+    .banner-actions {
       display: flex;
-      justify-content: space-between;
-      padding: 4px 0;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
 
-      .sprocket-hole {
-        width: 14px;
-        height: 10px;
-        background-color: #2C3B3A;
-        border-radius: 2px;
-        opacity: 0.7;
-
-        @media (max-width: 600px) {
-          width: 8px;
-          height: 6px;
-        }
-      }
-    }
-
-    .hero-img-wrapper {
-      position: relative;
-      overflow: hidden;
-      border-radius: 2px;
-      max-height: 520px;
-
-      .hero-img {
-        width: 100%;
-        height: 100%;
-        max-height: 520px;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.6s ease;
+      .btn-banner-primary {
+        background-color: var(--color-burgundy);
+        color: #FAF7F0;
+        border: 1px solid rgba(250, 247, 240, 0.4);
+        padding: 11px 26px;
+        border-radius: var(--radius-xs);
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 14px rgba(142, 41, 41, 0.5);
 
         &:hover {
-          transform: scale(1.02);
+          background-color: #A33333;
+          border-color: #FAF7F0;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 18px rgba(142, 41, 41, 0.7);
         }
       }
 
-      .hero-img-caption {
-        position: absolute;
-        bottom: 12px;
-        right: 16px;
-        background-color: rgba(26, 28, 26, 0.75);
-        backdrop-filter: blur(4px);
+      .btn-banner-outline {
+        background-color: rgba(250, 247, 240, 0.1);
         color: #FAF7F0;
-        padding: 6px 14px;
-        border-radius: 2px;
-        border: 1px solid rgba(250, 247, 240, 0.2);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 0.82rem;
+        border: 1px solid rgba(250, 247, 240, 0.5);
+        padding: 11px 26px;
+        border-radius: var(--radius-xs);
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(4px);
 
-        .caption-date {
-          color: var(--color-gold);
-          font-size: 0.75rem;
-          letter-spacing: 0.5px;
+        &:hover {
+          background-color: rgba(250, 247, 240, 0.22);
+          border-color: #FAF7F0;
+          transform: translateY(-2px);
         }
       }
     }
   }
+
+  // Bottom Film Metadata Strip
+  .banner-film-strip-bottom {
+    position: relative;
+    z-index: 2;
+
+    .banner-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: rgba(250, 247, 240, 0.75);
+      padding-bottom: 12px;
+      border-bottom: 1px dashed rgba(250, 247, 240, 0.2);
+      margin-bottom: 14px;
+
+      @media (max-width: 600px) {
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+      }
+
+      .meta-item-center {
+        color: #E2B878;
+        font-weight: 600;
+        letter-spacing: 2px;
+        font-size: 0.95rem;
+      }
+    }
+  }
+}
+
+@keyframes recBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.85); }
 }
 
 // Section 2: Milestone Statistics Strip

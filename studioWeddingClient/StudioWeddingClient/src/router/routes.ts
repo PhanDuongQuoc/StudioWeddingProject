@@ -28,6 +28,7 @@ const routes: RouteRecordRaw[] = [
       { path: 'dich-vu/:slug', component: () => import('@/pages/user/ServiceDetailPage.vue') },
       { path: 'goi-cuoi', component: () => import('@/pages/user/PackagePage.vue') },
       { path: 'goi-cuoi/:slug', component: () => import('@/pages/user/PackageDetailPage.vue') },
+      { path: 'lien-he', component: () => import('@/pages/user/ContactPage.vue') },
       { path: 'second', component: () => import('@/pages/SecondPage.vue') },
     ]
   },

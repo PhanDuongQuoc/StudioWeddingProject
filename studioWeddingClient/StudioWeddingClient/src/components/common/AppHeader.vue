@@ -25,7 +25,7 @@
         <router-link to="/album" class="nav-link" active-class="active">Album</router-link>
         <router-link to="/dich-vu" class="nav-link" active-class="active">Dịch vụ</router-link>
         <router-link to="/goi-cuoi" class="nav-link" active-class="active">Gói cưới</router-link>
-        <router-link to="/trang-chu#lien-he" class="nav-link">Liên hệ</router-link>
+        <router-link to="/lien-he" class="nav-link" active-class="active">Liên hệ</router-link>
       </nav>
 
       <!-- Right Utility Actions -->
@@ -111,7 +111,7 @@
             <span>Gói cưới</span>
             <i class="fa-solid fa-chevron-right"></i>
           </router-link>
-          <router-link to="/trang-chu#lien-he" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
+          <router-link to="/lien-he" class="mobile-nav-link font-serif" @click="mobileMenuOpen = false">
             <span>Liên hệ tư vấn</span>
             <i class="fa-solid fa-chevron-right"></i>
           </router-link>
