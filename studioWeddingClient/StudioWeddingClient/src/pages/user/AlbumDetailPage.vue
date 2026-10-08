@@ -31,13 +31,16 @@
       <section class="album-showcase-section">
         <div class="showcase-grid">
           <!-- Left: Big Main Photo -->
-          <div class="main-photo-frame">
+          <div class="main-photo-frame" @click="openLightbox(currentPhotoIndex)">
             <img
               :src="currentMainPhotoUrl"
               :alt="currentMainPhotoCaption || album.title"
               class="main-img film-photo"
-              @click="openLightbox(currentPhotoIndex)"
             />
+            <div class="photo-zoom-hint font-serif">
+              <i class="fa-solid fa-magnifying-glass-plus"></i>
+              <span>Nhấn để xem & phóng to</span>
+            </div>
           </div>
 
           <!-- Right: Stack of 3 Vertical Thumbnails + Prev/Next Buttons -->
@@ -116,7 +119,7 @@
             :key="photo.photoId || index"
             class="gallery-photo-item"
             :class="{ active: currentPhotoIndex === index }"
-            @click="setMainPhoto(index)"
+            @click="openLightbox(index)"
           >
             <img
               :src="photo.thumbnailUrl || photo.imageUrl"
@@ -124,38 +127,24 @@
               class="gallery-thumb-img film-photo"
               loading="lazy"
             />
+            <div class="photo-overlay-zoom">
+              <i class="fa-solid fa-magnifying-glass-plus"></i>
+            </div>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- Lightbox Modal -->
-    <q-dialog v-model="lightboxOpen" maximized transition-show="fade" transition-hide="fade">
-      <div class="lightbox-container" @click="lightboxOpen = false">
-        <button class="lightbox-close-btn" @click="lightboxOpen = false">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-
-        <div class="lightbox-inner" @click.stop>
-          <img
-            :src="currentMainPhotoUrl"
-            :alt="currentMainPhotoCaption || album?.title"
-            class="lightbox-img"
-          />
-
-          <div class="lightbox-caption font-serif" v-if="currentMainPhotoCaption">
-            <p>{{ currentMainPhotoCaption }}</p>
-          </div>
-
-          <button class="lightbox-nav-btn prev" @click.stop="prevPhoto">
-            <i class="fa-solid fa-chevron-left"></i>
-          </button>
-          <button class="lightbox-nav-btn next" @click.stop="nextPhoto">
-            <i class="fa-solid fa-chevron-right"></i>
-          </button>
-        </div>
-      </div>
-    </q-dialog>
+    <!-- Vintage High-End Lightbox Viewer Component -->
+    <VintageLightbox
+      :is-open="lightboxOpen"
+      :photos="allPhotos"
+      :current-index="currentPhotoIndex"
+      :album-title="album?.title"
+      @update:is-open="lightboxOpen = $event"
+      @update:current-index="currentPhotoIndex = $event"
+      @close="lightboxOpen = false"
+    />
   </div>
 </template>
 
@@ -164,6 +153,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAlbumDetail } from '@/composables/useAlbumDetail'
 import VintageLoading from '@/components/common/VintageLoading.vue'
+import VintageLightbox from '@/components/common/VintageLightbox.vue'
 
 const route = useRoute()
 const { album, isLoading, error, fetchAlbumDetail } = useAlbumDetail()
@@ -256,18 +246,6 @@ function openLightbox(index: number) {
   lightboxOpen.value = true
 }
 
-function nextPhoto() {
-  const photos = allPhotos.value
-  if (photos.length === 0) return
-  currentPhotoIndex.value = (currentPhotoIndex.value + 1) % photos.length
-}
-
-function prevPhoto() {
-  const photos = allPhotos.value
-  if (photos.length === 0) return
-  currentPhotoIndex.value = (currentPhotoIndex.value - 1 + photos.length) % photos.length
-}
-
 onMounted(async () => {
   const slug = route.params.slug as string
   if (slug) {
@@ -311,16 +289,49 @@ onMounted(async () => {
     background-color: var(--color-paper-dark);
     border: 1px solid var(--color-border);
     cursor: pointer;
+    position: relative;
 
     .main-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.4s ease;
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
 
-      &:hover {
-        transform: scale(1.02);
+    .photo-zoom-hint {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      background: rgba(20, 26, 26, 0.8);
+      color: #FAF7F0;
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(250, 247, 240, 0.25);
+      border-radius: var(--radius-xs, 4px);
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+
+      i {
+        color: #D4A373;
+        font-size: 0.9rem;
+      }
+    }
+
+    &:hover {
+      .main-img {
+        transform: scale(1.03);
+      }
+
+      .photo-zoom-hint {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
   }
@@ -365,12 +376,17 @@ onMounted(async () => {
           height: 100%;
           object-fit: cover;
           display: block;
+          transition: transform 0.3s ease;
         }
 
         &:hover,
         &.active {
           opacity: 1;
           border: 1.5px solid var(--color-burgundy);
+
+          .thumb-img {
+            transform: scale(1.04);
+          }
         }
       }
     }
@@ -453,7 +469,7 @@ onMounted(async () => {
   .bottom-photos-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
+    gap: 12px;
 
     @media (max-width: 1000px) {
       grid-template-columns: repeat(4, 1fr);
@@ -469,8 +485,9 @@ onMounted(async () => {
       overflow: hidden;
       border: 1px solid var(--color-border);
       cursor: pointer;
-      opacity: 0.9;
-      transition: all 0.25s ease;
+      position: relative;
+      opacity: 0.92;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 
       .gallery-thumb-img {
         width: 100%;
@@ -480,97 +497,37 @@ onMounted(async () => {
         transition: transform 0.4s ease;
       }
 
+      .photo-overlay-zoom {
+        position: absolute;
+        inset: 0;
+        background: rgba(20, 26, 26, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        color: #FAF7F0;
+        font-size: 1.25rem;
+      }
+
       &:hover {
         opacity: 1;
         border-color: var(--color-burgundy);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(36, 36, 33, 0.08);
 
         .gallery-thumb-img {
-          transform: scale(1.05);
+          transform: scale(1.06);
+        }
+
+        .photo-overlay-zoom {
+          opacity: 1;
         }
       }
 
       &.active {
         opacity: 1;
         border: 2px solid var(--color-burgundy);
-      }
-    }
-  }
-}
-
-// Lightbox Modal
-.lightbox-container {
-  position: fixed;
-  inset: 0;
-  background: rgba(24, 35, 34, 0.92);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  padding: 20px;
-
-  .lightbox-close-btn {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    background: none;
-    border: none;
-    color: #FAF7F0;
-    font-size: 1.8rem;
-    cursor: pointer;
-    z-index: 10;
-  }
-
-  .lightbox-inner {
-    position: relative;
-    max-width: 90vw;
-    max-height: 85vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .lightbox-img {
-      max-width: 100%;
-      max-height: 80vh;
-      object-fit: contain;
-    }
-
-    .lightbox-caption {
-      margin-top: 12px;
-      color: #DCD5C8;
-      font-size: 1rem;
-      text-align: center;
-    }
-
-    .lightbox-nav-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #FAF7F0;
-      width: 44px;
-      height: 44px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background-color 0.2s;
-
-      &.prev {
-        left: -60px;
-      }
-
-      &.next {
-        right: -60px;
-      }
-
-      &:hover {
-        background: var(--color-burgundy);
-      }
-
-      @media (max-width: 768px) {
-        &.prev { left: 10px; }
-        &.next { right: 10px; }
       }
     }
   }

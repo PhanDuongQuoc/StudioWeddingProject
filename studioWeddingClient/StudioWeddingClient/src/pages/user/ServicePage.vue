@@ -26,19 +26,22 @@
       </nav>
 
       <!-- Page Heading -->
-      <div class="page-title-row">
+      <div class="page-title-row" v-reveal>
+        <div class="wedding-chinese-tag q-mb-sm">
+          <span>囍 專業婚禮服務 · DỊCH VỤ CƯỚI TRỌN GÓI</span>
+        </div>
         <h1 class="page-main-title font-serif">Dịch vụ của chúng tôi</h1>
       </div>
 
       <!-- Empty State -->
-      <div v-if="services.length === 0" class="empty-service-box">
+      <div v-if="services.length === 0" class="empty-service-box" v-reveal>
         <i class="fa-solid fa-camera empty-icon"></i>
         <h3 class="empty-title font-serif">Chưa có dịch vụ nào</h3>
         <p class="empty-desc font-serif">Hiện tại chưa có dịch vụ nào được cập nhật.</p>
       </div>
 
       <!-- 3-Column Service Grid (Mockup Match) -->
-      <div v-else class="services-catalog-grid">
+      <div v-else class="services-catalog-grid stagger-grid" v-reveal>
         <article
           v-for="service in services"
           :key="service.serviceId"

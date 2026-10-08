@@ -1,5 +1,5 @@
 <template>
-  <section id="dich-vu" class="services-section">
+  <section id="dich-vu" class="services-section" v-reveal>
     <div class="studio-container">
       <SectionTitle
         title="Dịch vụ của chúng tôi"
@@ -7,13 +7,11 @@
         tag="Services"
       />
 
-      <div class="services-grid">
+      <div class="services-grid stagger-grid" v-reveal>
         <ServiceCard
-          v-for="(service, idx) in (services || [])"
+          v-for="service in (services || [])"
           :key="service.serviceId"
           :service="service"
-          class="animate-fade-in-up"
-          :class="`stagger-${(idx % 3) + 1}`"
         />
       </div>
     </div>

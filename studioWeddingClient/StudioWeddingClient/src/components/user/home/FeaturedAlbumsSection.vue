@@ -1,5 +1,5 @@
 <template>
-  <section id="albums" class="featured-albums-section">
+  <section id="albums" class="featured-albums-section" v-reveal>
     <div class="studio-container">
       <SectionTitle
         title="Album ảnh nổi bật"
@@ -7,21 +7,19 @@
         tag="Portfolio"
       >
         <template #action>
-          <a href="#albums" class="view-all-link font-serif">
+          <router-link to="/album" class="view-all-link font-serif">
             <span>Xem tất cả album</span>
             <i class="fa-solid fa-arrow-right arrow"></i>
-          </a>
+          </router-link>
         </template>
       </SectionTitle>
 
       <!-- Albums Grid (3 columns desktop, 2 tablet, 1 mobile) -->
-      <div class="albums-grid">
+      <div class="albums-grid stagger-grid" v-reveal>
         <AlbumCard
-          v-for="(album, idx) in (albums || [])"
+          v-for="album in (albums || [])"
           :key="album.albumId"
           :album="album"
-          class="animate-fade-in-up"
-          :class="`stagger-${(idx % 3) + 1}`"
         />
       </div>
     </div>

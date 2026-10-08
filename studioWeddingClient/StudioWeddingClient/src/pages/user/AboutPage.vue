@@ -132,9 +132,9 @@
       </section>
 
       <!-- Section 2: Milestone Statistics Strip -->
-      <section class="milestone-stats-section">
+      <section class="milestone-stats-section" v-reveal>
         <div class="studio-container">
-          <div class="stats-grid">
+          <div class="stats-grid stagger-grid">
             <!-- Stat 1: Years -->
             <div class="stat-card paper-card">
               <div class="stat-icon-wrap">
@@ -179,7 +179,7 @@
       </section>
 
       <!-- Section 3: Brand Story (Editorial 2-Column Split) -->
-      <section id="brand-story" class="brand-story-section">
+      <section id="brand-story" class="brand-story-section" v-reveal>
         <div class="studio-container">
           <div class="story-grid">
             <!-- Left: Darkroom & Vintage Photo Showcase -->
@@ -251,7 +251,7 @@
       </section>
 
       <!-- Section 4: 4 Core Principles / Nghệ Thuật & Triết Lý Hỷ Sự -->
-      <section class="core-philosophy-section">
+      <section class="core-philosophy-section" v-reveal>
         <div class="studio-container">
           <div class="section-header-center">
             <div class="center-seal font-chinese">囍</div>
@@ -261,7 +261,7 @@
             </p>
           </div>
 
-          <div class="philosophy-grid">
+          <div class="philosophy-grid stagger-grid">
             <!-- Item 1 -->
             <div class="philosophy-card paper-card">
               <div class="card-num font-serif">01</div>

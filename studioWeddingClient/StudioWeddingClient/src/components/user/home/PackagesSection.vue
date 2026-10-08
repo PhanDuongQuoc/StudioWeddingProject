@@ -1,5 +1,5 @@
 <template>
-  <section id="goi-cuoi" class="packages-section">
+  <section id="goi-cuoi" class="packages-section" v-reveal>
     <div class="studio-container">
       <SectionTitle
         title="Bảng giá gói cưới"
@@ -8,14 +8,12 @@
         align="center"
       />
 
-      <div class="packages-grid">
+      <div class="packages-grid stagger-grid" v-reveal>
         <PackageCard
           v-for="(pkg, idx) in (packages || [])"
           :key="pkg.packageId"
           :pkg="pkg"
           :is-featured="idx === 1 || pkg.slug?.includes('cao-cap')"
-          class="animate-fade-in-up"
-          :class="`stagger-${(idx % 3) + 1}`"
         />
       </div>
     </div>
