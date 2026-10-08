@@ -26,14 +26,17 @@
       </nav>
 
       <!-- Page Heading -->
-      <div class="page-title-row">
+      <div class="page-title-row" v-reveal>
+        <div class="wedding-chinese-tag q-mb-sm">
+          <span>囍 喜事相冊 · ALBUM KỶ NIỆM</span>
+        </div>
         <h1 class="page-main-title font-serif">Album ảnh</h1>
       </div>
 
       <!-- Two-Column Editorial Layout: Sidebar + Gallery Grid -->
       <div class="album-layout-grid">
         <!-- Left Sidebar: Category Filters -->
-        <aside class="album-sidebar">
+        <aside class="album-sidebar" v-reveal="'fade-left'">
           <div class="category-filter-box">
             <button
               class="cat-filter-item font-serif"
@@ -66,7 +69,7 @@
         <!-- Right Column: Albums Grid -->
         <section class="album-gallery-col">
           <!-- Empty State -->
-          <div v-if="albums.length === 0" class="empty-gallery-box">
+          <div v-if="albums.length === 0" class="empty-gallery-box" v-reveal>
             <i class="fa-solid fa-camera-retro empty-icon"></i>
             <h3 class="empty-title font-serif">Chưa có album nào</h3>
             <p class="empty-desc font-serif">
@@ -78,7 +81,7 @@
           </div>
 
           <!-- 3-Column Album Cards Grid -->
-          <div v-else class="albums-grid">
+          <div v-else class="albums-grid stagger-grid" v-reveal>
             <article
               v-for="album in albums"
               :key="album.albumId"
@@ -93,6 +96,10 @@
                     class="card-img film-photo"
                     loading="lazy"
                   />
+                  <div class="photo-overlay-tag font-serif">
+                    <span>Xem album</span>
+                    <i class="fa-solid fa-arrow-right q-ml-xs"></i>
+                  </div>
                 </div>
 
                 <!-- Text Content Below Image -->
@@ -346,13 +353,31 @@ watch(
       border-radius: var(--radius-xs);
       background-color: var(--color-paper-dark);
       border: 1px solid var(--color-border);
+      position: relative;
 
       .card-img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
-        transition: transform 0.4s ease;
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+      }
+
+      .photo-overlay-tag {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(142, 41, 41, 0.85);
+        color: #FAF7F0;
+        font-size: 0.78rem;
+        padding: 4px 10px;
+        border-radius: 2px;
+        backdrop-filter: blur(4px);
+        opacity: 0;
+        transform: translateY(4px);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
       }
     }
 
@@ -377,8 +402,18 @@ watch(
     }
 
     &:hover {
-      .card-image-wrap .card-img {
-        transform: scale(1.035);
+      .card-image-wrap {
+        border-color: var(--color-burgundy);
+
+        .card-img {
+          transform: scale(1.05);
+          filter: saturate(1.02);
+        }
+
+        .photo-overlay-tag {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .card-title {

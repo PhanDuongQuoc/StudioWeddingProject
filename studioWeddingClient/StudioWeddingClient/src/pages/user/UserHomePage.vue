@@ -21,6 +21,23 @@
       <!-- 3. Services Section -->
       <ServicesSection :services="homeData?.services || []" />
 
+      <!-- Romantic Wedding Interlude Quote Strip -->
+      <section class="wedding-interlude-strip" v-reveal>
+        <div class="studio-container text-center">
+          <div class="wedding-wax-seal q-mb-md">囍</div>
+          <p class="interlude-quote font-serif">
+            "Từng khuôn hình tráng bạc mang theo nhịp thở của thời gian — Chắt chiu từng khoảnh khắc son rỗi, viết nên khúc tình ca vĩnh cửu."
+          </p>
+          <div class="interlude-sub font-serif">
+            <span>HỶ SỰ STUDIO</span>
+            <span class="dot">·</span>
+            <span class="font-chinese">良緣夙締 · 百年好合</span>
+            <span class="dot">·</span>
+            <span>EST. 1998</span>
+          </div>
+        </div>
+      </section>
+
       <!-- 4. Packages Section -->
       <PackagesSection :packages="homeData?.packages || []" />
 
@@ -57,6 +74,38 @@ onMounted(async () => {
 .user-home-page {
   min-height: 100vh;
   background-color: var(--color-paper);
+}
+
+.wedding-interlude-strip {
+  padding: 60px 0;
+  background-color: var(--color-paper-light);
+  border-top: 1px dashed var(--color-border);
+  border-bottom: 1px dashed var(--color-border);
+  position: relative;
+  overflow: hidden;
+
+  .interlude-quote {
+    font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+    line-height: 1.6;
+    color: var(--color-ink);
+    max-width: 820px;
+    margin: 0 auto 16px;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .interlude-sub {
+    font-size: 0.85rem;
+    color: var(--color-burgundy);
+    letter-spacing: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    .dot {
+      color: var(--color-border-dark);
+    }
+  }
 }
 
 .home-error {

@@ -26,19 +26,22 @@
       </nav>
 
       <!-- Page Heading -->
-      <div class="page-title-row">
+      <div class="page-title-row" v-reveal>
+        <div class="wedding-chinese-tag q-mb-sm">
+          <span>囍 婚禮套餐 · BẢNG GIÁ GÓI CƯỚI TRỌN GÓI</span>
+        </div>
         <h1 class="page-main-title font-serif">Gói cưới</h1>
       </div>
 
       <!-- Empty State -->
-      <div v-if="packages.length === 0" class="empty-package-box">
+      <div v-if="packages.length === 0" class="empty-package-box" v-reveal>
         <i class="fa-solid fa-box-open empty-icon"></i>
         <h3 class="empty-title font-serif">Chưa có gói cưới nào</h3>
         <p class="empty-desc font-serif">Hiện tại chưa có gói cưới nào được cập nhật.</p>
       </div>
 
       <!-- 3-Column Package Cards Grid (Exact Mockup Match) -->
-      <div v-else class="packages-catalog-grid">
+      <div v-else class="packages-catalog-grid stagger-grid" v-reveal>
         <article
           v-for="pkg in packages"
           :key="pkg.packageId"
