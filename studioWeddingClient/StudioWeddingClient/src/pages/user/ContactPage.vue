@@ -9,14 +9,17 @@
       </nav>
 
       <!-- Page Heading -->
-      <div class="page-title-row">
+      <div class="page-title-row" v-reveal>
+        <div class="wedding-chinese-tag q-mb-sm">
+          <span>囍 喜事聯絡 · ĐẶT LỊCH & TƯ VẤN NGÀY CƯỚI</span>
+        </div>
         <h1 class="page-main-title font-serif">Liên hệ</h1>
       </div>
 
       <!-- Main 3-Column / Editorial Grid matching Mockup -->
       <div class="contact-layout-grid">
         <!-- 1. Left Column: Contact Details & Map Card -->
-        <div class="contact-info-col">
+        <div class="contact-info-col" v-reveal="'fade-left'">
           <div class="info-items-list font-serif">
             <!-- Địa chỉ -->
             <div class="info-entry">
@@ -72,7 +75,7 @@
         </div>
 
         <!-- 2. Middle Column: Consultation Form -->
-        <div class="contact-form-col">
+        <div class="contact-form-col" v-reveal>
           <div class="form-card-box">
             <h2 class="form-title font-serif">Gửi yêu cầu tư vấn</h2>
 
@@ -152,7 +155,7 @@
         </div>
 
         <!-- 3. Right Column: Vertical Vintage Photo Banner (Mockup Match) -->
-        <div class="contact-photo-col">
+        <div class="contact-photo-col" v-reveal="'fade-right'">
           <div class="vertical-photo-frame">
             <img
               src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
