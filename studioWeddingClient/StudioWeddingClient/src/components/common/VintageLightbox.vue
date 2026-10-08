@@ -398,15 +398,19 @@ function handleTouchEnd() {
 
 // Fullscreen
 function toggleFullscreen() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen().then(() => {
-      isFullscreen.value = true
-    }).catch(() => {})
-  } else {
-    document.exitFullscreen().then(() => {
-      isFullscreen.value = false
-    }).catch(() => {})
-  }
+  void (async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen()
+        isFullscreen.value = true
+      } else {
+        await document.exitFullscreen()
+        isFullscreen.value = false
+      }
+    } catch {
+      // Ignore fullscreen rejection
+    }
+  })()
 }
 
 // Keyboard
@@ -439,9 +443,9 @@ function handleKeyDown(e: KeyboardEvent) {
 }
 
 function scrollThumbIntoView() {
-  nextTick(() => {
+  void nextTick(() => {
     const targetThumb = thumbRefs.value[currentIndex.value]
-    if (targetThumb && targetThumb.scrollIntoView) {
+    if (targetThumb && typeof targetThumb.scrollIntoView === 'function') {
       targetThumb.scrollIntoView({
         behavior: 'smooth',
         inline: 'center',
